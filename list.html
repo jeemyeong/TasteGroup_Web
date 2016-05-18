@@ -22,6 +22,8 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+
   </head>
   <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -39,58 +41,9 @@
               <img src="img/rests/01.png" style="width:100%;">
             </a>
           </div>
-          <div class="col-xs-6" style="padding:10px">
-            <a href="detail.html">
-              <img src="img/rests/01.png" style="width:100%;">
-            </a>
-          </div>
-          <div class="col-xs-6" style="padding:10px">
-            <a href="detail.html">
-              <img src="img/rests/01.png" style="width:100%;">
-            </a>
-          </div>
-          <div class="col-xs-6" style="padding:10px">
-            <a href="detail.html">
-              <img src="img/rests/01.png" style="width:100%;">
-            </a>
-          </div>
-          <div class="col-xs-6" style="padding:10px">
-            <a href="detail.html">
-              <img src="img/rests/01.png" style="width:100%;">
-            </a>
-          </div>
-          <div class="col-xs-6" style="padding:10px">
-            <a href="detail.html">
-              <img src="img/rests/01.png" style="width:100%;">
-            </a>
-          </div>
-          <div class="col-xs-6" style="padding:10px">
-            <a href="detail.html">
-              <img src="img/rests/01.png" style="width:100%;">
-            </a>
-          </div>
-          <div class="col-xs-6" style="padding:10px">
-            <a href="detail.html">
-              <img src="img/rests/01.png" style="width:100%;">
-            </a>
-          </div>
-          <div class="col-xs-6" style="padding:10px">
-            <a href="detail.html">
-              <img src="img/rests/01.png" style="width:100%;">
-            </a>
-          </div>
-          <div class="col-xs-6" style="padding:10px">
-            <a href="detail.html">
-              <img src="img/rests/01.png" style="width:100%;">
-            </a>
-          </div>
-          <div class="col-xs-6" style="padding:10px">
-            <a href="detail.html">
-              <img src="img/rests/01.png" style="width:100%;">
-            </a>
-          </div>
 
         </div>
+    <div id='messagesDiv'></div>
 
     </div>
 
@@ -98,5 +51,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script>
+
+        
+      var myDataRef = new Firebase('https://tastegroup.firebaseio.com/Restaurants');
+      myDataRef.on('child_added', function(snapshot) {
+        var message = snapshot.val();
+        displayChatMessage(message.Name, message.Phone, message.Photo, message.Price, message.Recommendation, message.Review, message.Seat);
+      });
+      function displayChatMessage(Name, Phone, Photo, Price, Recommendation, Review, Seat) {
+//        $('<div/>').text(Phone).prepend($('<em/>').text(Name+': ')).append($('<div').text('<img src="http://'+Photo+'">')).append($('<h2>')).text(Price).append($('<p>').text(Recommendation)).append($('<h2>').text(Review)).append($('<h2>').text(Seat)).appendTo($('#messagesDiv'));
+        $('<div/>').text(Phone).prepend($('<em/>').text(Name+': ')).appendTo($('#messagesDiv'));
+
+        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+      };
+    </script>
   </body>
 </html>
