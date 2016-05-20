@@ -22,6 +22,8 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+
   </head>
   <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -31,9 +33,10 @@
             <a class="to_nav" href="#primary_nav">Menu</a>
         </div>
     </nav>    
-      
-    <div class="jumbotron" style="background-color:white; margin-top:15%">
-        <img src="img/rests/01.png" style="width:75%; margin-left:12.5%">
+    
+    
+    <div id="main" class="jumbotron" style="background-color:white; margin-top:15%">
+<!--        <img src="img/rests/01.png" style="width:75%; margin-left:12.5%">-->
         <center>
         <p>신촌 고기창고 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <a href="tel:+821085990681"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span></a></p>
@@ -50,5 +53,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script>
+
+        
+      var myDataRef = new Firebase('https://tastegroup.firebaseio.com/Restaurants');
+      myDataRef.on('child_added', function(snapshot) {
+        var message = snapshot.val();
+        displayChatMessage(message.Name, message.Phone, message.Photo, message.Price, message.Recommendation, message.Review, message.Seat);
+      });
+      function displayChatMessage(Name, Phone, Photo, Price, Recommendation, Review, Seat) {
+//        $('<div class="col-xs-6"/>').text(Phone).prepend($('<em/>').text(Name+': ')).append($('<div/>').text('<img src="'+Photo+'"/>')).append($('<p>').text(Price)).append($('<p>').text(Recommendation)).append($('<p>').text(Review)).append($('<p>').text(Seat)).prepend($('<img>',{id:Photo,src:Photo,innerWidth:"100%"})).appendTo($('#list'));
+        $('<div/>').css({marginLeft:"12.5%", width:"75%"}).append($('<img>',{id:Photo,src:Photo,innerWidth:"100%",marginLeft:"150px"})).appendTo($('#main'));
+        $('<div/>').css({marginLeft:"12.5%", width:"75%"}).append($('<p>',{align:"center"}).text(Name)).appendTo($('#main'));
+//        $('<img>',{id:Photo,src:Photo,innerWidth:"100%",innerHeight:"195"}).appendTo($('#list'));
+        $('<a href="tel:+821085990681"/>').append($('<p>',{align:"center"}).text("전화하기")).appendTo($('#main'));
+        $('<a href="http://map.naver.com/?dlevel=11&pinType=site&pinId=11590700&x=126.935088&y=37.557929&enc=b64"/>').append($('<p>',{align:"center"}).text("위치")).appendTo($('#main'));
+//        ($('<a href="detail.html">')).appendTo($(#list));
+        $('#main')[0].scrollTop = $('#main')[0].scrollHeight;
+      };
+    </script>
   </body>
 </html>

@@ -41,9 +41,9 @@
               <img src="img/rests/01.png" style="width:100%;">
             </a>
           </div>
+        <div id='list'></div>
 
         </div>
-    <div id='messagesDiv'></div>
 
     </div>
 
@@ -60,10 +60,11 @@
         displayChatMessage(message.Name, message.Phone, message.Photo, message.Price, message.Recommendation, message.Review, message.Seat);
       });
       function displayChatMessage(Name, Phone, Photo, Price, Recommendation, Review, Seat) {
-//        $('<div/>').text(Phone).prepend($('<em/>').text(Name+': ')).append($('<div').text('<img src="http://'+Photo+'">')).append($('<h2>')).text(Price).append($('<p>').text(Recommendation)).append($('<h2>').text(Review)).append($('<h2>').text(Seat)).appendTo($('#messagesDiv'));
-        $('<div/>').text(Phone).prepend($('<em/>').text(Name+': ')).appendTo($('#messagesDiv'));
-
-        $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+//        $('<div class="col-xs-6"/>').text(Phone).prepend($('<em/>').text(Name+': ')).append($('<div/>').text('<img src="'+Photo+'"/>')).append($('<p>').text(Price)).append($('<p>').text(Recommendation)).append($('<p>').text(Review)).append($('<p>').text(Seat)).prepend($('<img>',{id:Photo,src:Photo,innerWidth:"100%"})).appendTo($('#list'));
+//        $('<div class="col-xs-6"/>').append($('<p>').text(Name)).prepend($('<img>',{id:Photo,src:Photo,innerWidth:"100%",innerHeight:"195"})).appendTo($('#list'));
+        $('<a href="detail.html" class="col-xs-6"/>').append($('<p>').text(Name)).prepend($('<img>',{id:Photo,src:Photo,innerWidth:"100%",innerHeight:"195"})).appendTo($('#list'));
+//        ($('<a href="detail.html">')).appendTo($(#list));
+        $('#list')[0].scrollTop = $('#list')[0].scrollHeight;
       };
     </script>
   </body>
