@@ -54,3 +54,21 @@ a.to_nav:focus {
     color: #1c1c1c;
     background: #ccc;
 }
+
+/*to use list*/
+div.listBox {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+img.listImage{
+    display: block;
+    min-width: 100%;
+    min-height: 100%;
+    margin: auto;
+    position: absolute;
+    top: -100%;
+    right: -100%;
+    bottom: -100%;
+    left: -100%;
+}

@@ -35,14 +35,21 @@
     </nav>    
       
     <div class="jumbotron" style="background-color:white; margin-top:15%">
-        <div class="row">
-          <div class="col-xs-6" style="padding:10px">
-            <a href="detail.html">
-              <img src="img/rests/01.png" style="width:100%;">
-            </a>
+        <div class="row" id='list'>
+          <div class="col-xs-6" style="padding:10px; height:200px">
+            <div class="listBox">
+              <a href="detail.html">
+                <img src="img/rests/01.png" style="width:100%;">
+              </a>
+            </div>
           </div>
-        <div id='list'></div>
-
+          <div class="col-xs-6" style="padding:10px; height:200px">
+            <div class="listBox">
+              <a href="detail.html" class="list">
+                <img src="img/rests/01.png" style="width:100%;">
+              </a>
+            </div>
+          </div>
         </div>
 
     </div>
@@ -57,12 +64,14 @@
       var myDataRef = new Firebase('https://tastegroup.firebaseio.com/Restaurants');
       myDataRef.on('child_added', function(snapshot) {
         var message = snapshot.val();
-        displayChatMessage(message.Name, message.Phone, message.Photo, message.Price, message.Recommendation, message.Review, message.Seat);
+        displayChatMessage(snapshot.key(), message.Name, message.Phone, message.Photo, message.Price, message.Recommendation, message.Review, message.Seat);
       });
-      function displayChatMessage(Name, Phone, Photo, Price, Recommendation, Review, Seat) {
+      function displayChatMessage(key, Name, Phone, Photo, Price, Recommendation, Review, Seat) {
 //        $('<div class="col-xs-6"/>').text(Phone).prepend($('<em/>').text(Name+': ')).append($('<div/>').text('<img src="'+Photo+'"/>')).append($('<p>').text(Price)).append($('<p>').text(Recommendation)).append($('<p>').text(Review)).append($('<p>').text(Seat)).prepend($('<img>',{id:Photo,src:Photo,innerWidth:"100%"})).appendTo($('#list'));
 //        $('<div class="col-xs-6"/>').append($('<p>').text(Name)).prepend($('<img>',{id:Photo,src:Photo,innerWidth:"100%",innerHeight:"195"})).appendTo($('#list'));
-        $('<a href="detail.html" class="col-xs-6"/>').append($('<p>').text(Name)).prepend($('<img>',{id:Photo,src:Photo,innerWidth:"100%",innerHeight:"195"})).appendTo($('#list'));
+        $('<div class="col-xs-6" style="padding:10px; height:200px" id="'+key+'"/>').appendTo($('#list'));
+        $('<div class="listBox" id="listBox'+key+'"/>').appendTo($('#'+key));
+        $('<a href="detail.html"/>').append($('<p align="center">').text(Name)).prepend($('<img>',{id:Photo,class:"listImage",src:Photo,innerWidth:"100%"})).appendTo($('#listBox'+key));
 //        ($('<a href="detail.html">')).appendTo($(#list));
         $('#list')[0].scrollTop = $('#list')[0].scrollHeight;
       };
